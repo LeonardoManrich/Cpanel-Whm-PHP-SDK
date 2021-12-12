@@ -1,0 +1,20 @@
+{
+    "name": "leonardomanrich/cpanelwhm",
+    "description": "Php abstrction to apis cpanel and whm",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Leonardomanrich\\Cpanelwhm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leonardo Manrich",
+            "email": "leomanrich@hotmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.4"
+    }
+}
