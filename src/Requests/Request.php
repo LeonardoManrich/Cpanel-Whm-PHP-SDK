@@ -125,6 +125,17 @@ class Request
     /**
      * Undocumented function
      *
+     * @param [type] $body
+     * @return void
+     */
+    public function addBody($body)
+    {
+        array_push($this->body, $body);
+    }
+
+    /**
+     * Undocumented function
+     *
      * @param [type] $header
      * @return mixed
      */

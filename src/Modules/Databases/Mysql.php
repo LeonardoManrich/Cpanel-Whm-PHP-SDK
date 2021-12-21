@@ -19,4 +19,8 @@ class Mysql{
         return new Request("GET", "Mysql/list_databases");
     }
 
+    public static function get_host_notes()
+    {
+        return new Request("GET", "Mysql/get_host_notes");
+    }
 }

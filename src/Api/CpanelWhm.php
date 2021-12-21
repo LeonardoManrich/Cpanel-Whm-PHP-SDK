@@ -37,4 +37,12 @@ abstract class CpanelWhm implements Environment
     {
         return base64_encode($this->username . ":" . $this->userpassword);
     }
+
+    public function authQuery()
+    {
+        return [
+            'identifier' => $this->username,
+            'secret' => $this->userpassword
+        ];
+    }
 }

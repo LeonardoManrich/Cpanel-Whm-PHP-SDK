@@ -6,15 +6,7 @@ namespace Leonardomanrich\Cpanelwhm\Api;
  * Undocumented class
  */
 //TODO documentar aqui
-class UAPI extends CpanelWhm
-{
-    /**
-     * Undocumented variable
-     *
-     * @var [type]
-     */
-    //TODO documentar aqui
-    private $port;
+class WHMCS extends CpanelWhm{
 
     /**
      * Undocumented variable
@@ -34,12 +26,13 @@ class UAPI extends CpanelWhm
      * @param [type] $userpassword
      */
     //TODO refatorar
-    public function __construct($base_url, $port, $username, $userpassword)
+    public function __construct($base_url, $api_identifier, $api_secret)
     {   
-        $this->port = $port;
         $this->base_url = $base_url;
+        $this->api_identifier = $api_identifier;
+        $this->api_secret = $api_secret;
 
-        parent::__construct($username, $userpassword);
+        parent::__construct($api_identifier, $api_secret);
     }
 
     /**
@@ -47,14 +40,15 @@ class UAPI extends CpanelWhm
      *
      * @return string
      */
+    
     public function uri(): string
     {
-        return "/execute/";
+        return "/includes/api.php";
     }
 
     public function base_url(): string
     {
-        return $this->base_url . ':' .$this->port;
+        return $this->base_url;
     }
 
 }

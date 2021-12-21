@@ -63,6 +63,8 @@ class ClientCpanelWhm extends Client
                 $inj->inject($request);
             }
 
+            //die(var_dump($request->options));
+
             $result = $this->send(
                 new Psr7Request(
                     $request->verb,
