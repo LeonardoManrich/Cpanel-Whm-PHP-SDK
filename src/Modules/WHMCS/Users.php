@@ -5,8 +5,8 @@ namespace Leonardomanrich\Cpanelwhm\Modules\WHMCS;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 //TODO TERMINAR
-class Users{
-    //https://developers.whmcs.com/api/api-index/
+class Users extends Request
+{
 
     /**
      * Undocumented function
@@ -14,18 +14,16 @@ class Users{
      * @return void
      */
     //TODO documentar aqui
-    public static function getUsers($limitStart = 0, $limitNum = 25, $sorting = 'ASC', $search = '') : Request
+    public function getUsers($limitStart = 0, $limitNum = 25, $sorting = 'ASC', $search = '')
     {
-        return new Request("GET", "", [], [
-            //'form_params' => [
-                'action' => 'GetUsers',
-                'limitstart' => $limitStart,
-                'limitnum' => $limitNum,
-                'sorting' => $sorting,
-                'search' => $search
-            //]
-            
-        ]);
-    }
 
+        return $this->setMethod('GET')->setPath("")->addQueryParams([
+            'action' => 'GetUsers',
+            'limitstart' => $limitStart,
+            'limitnum' => $limitNum,
+            'sorting' => $sorting,
+            'search' => $search
+        ]);
+
+    }
 }

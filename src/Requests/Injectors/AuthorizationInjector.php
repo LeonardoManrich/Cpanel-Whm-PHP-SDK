@@ -1,10 +1,10 @@
 <?php
 
-namespace Leonardomanrich\Cpanelwhm\Requests;
+namespace Leonardomanrich\Cpanelwhm\Requests\Injectors;
 
-use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
 use Leonardomanrich\Cpanelwhm\Api\WHMCS;
-use Leonardomanrich\Cpanelwhm\Http\ClientCpanelWhm;
+use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
+use Leonardomanrich\Cpanelwhm\Requests\Injectors\Injector;
 
 class AuthorizationInjector implements Injector
 {
@@ -37,19 +37,22 @@ class AuthorizationInjector implements Injector
     public function inject($request)
     {
 
-        if(!$this->environment instanceof WHMCS){
+        if (!$this->environment instanceof WHMCS) {
 
             if (!$this->hasAuthHeader($request)) {
                 $request->headers['Authorization'] = 'Basic ' . $this->environment->authorizationKey();
             }
-            
         } else {
-            $request->body['identifier'] = $this->environment->authQuery()['identifier'];
-            $request->body['secret'] = $this->environment->authQuery()['secret'];
-        }
+            $request->addQueryParams(
+                [
+                    'identifier' => $this->environment->authQuery()['identifier'],
+                    'secret' => $this->environment->authQuery()['secret']
+                ]
+            );
 
+        }
     }
-    
+
     /**
      * Undocumented function
      *
@@ -74,6 +77,5 @@ class AuthorizationInjector implements Injector
         $parsed_body = parse_url($request->getBody(), PHP_URL_QUERY);
 
         return in_array(['identifier', 'secret'], $parsed_body);
-        
     }
 }

@@ -14,15 +14,15 @@ class Request
      * @var string
      */
     //TODO documentar aqui
-    public string $verb;
-    
+    private string $verb;
+
     /**
      * Undocumented variable
      *
      * @var string
      */
     //TODO documentar aqui
-    public string $path;
+    private string $path;
 
     /**
      * Undocumented variable
@@ -30,7 +30,7 @@ class Request
      * @var array
      */
     //TODO documentar aqui
-    public array $headers;
+    private array $headers;
 
     /**
      * Undocumented variable
@@ -38,7 +38,7 @@ class Request
      * @var array
      */
     //TODO documentar aqui
-    public array $body;
+    private array $body;
 
     /**
      * Undocumented variable
@@ -46,9 +46,9 @@ class Request
      * @var array
      */
     //TODO documentar aqui
-    public array $options;
+    private array $options;
 
-    function __construct($verb, $path, $headers = [], $body = [], $options = [])
+    function __construct($verb = '', $path = '', $headers = [], $body = [], $options = [])
     {
         $this->path = $path;
         $this->verb = $verb;
@@ -84,6 +84,11 @@ class Request
         return $this;
     }
 
+    public function getMethod()
+    {
+        return $this->verb;
+    }
+
     /**
      * Undocumented function
      *
@@ -95,6 +100,11 @@ class Request
     {
         $this->path = $path;
         return $this;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**
@@ -117,7 +127,7 @@ class Request
      * @return string
      */
     //TODO documentar aqui
-    public function getBody() : string
+    public function getBody(): string
     {
         return http_build_query($this->body, "", '&');
     }
@@ -128,9 +138,14 @@ class Request
      * @param [type] $body
      * @return void
      */
-    public function addBody($body)
-    {
-        array_push($this->body, $body);
+    public function addBody(array $params)
+    {   
+        foreach($params as $key => $param){
+
+            $this->body[$key] = $param;
+        }
+        
+        return $this;
     }
 
     /**
@@ -140,8 +155,42 @@ class Request
      * @return mixed
      */
     //TODO documentar aqui
-    public function getHeader($header) : mixed
+    public function getHeader($header): mixed
     {
         return $this->headers[$header] ?? false;
+    }
+
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function addFormParams(array $params)
+    {
+        $this->options['form_params'] ?? $this->options['form_params'] = [];
+
+        foreach($params as $key => $param){
+
+            $this->options['form_params'][$key] = $param;
+        }
+
+        return $this;
+    }
+
+    public function addQueryParams(array $params)
+    {
+        $this->options['form_params'] ?? $this->options['form_params'] = [];
+
+        foreach($params as $key => $param){
+
+            $this->options['query'][$key] = $param;
+        }
+
+        return $this;
     }
 }

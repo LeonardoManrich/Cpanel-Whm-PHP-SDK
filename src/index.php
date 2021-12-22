@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 
 include '../vendor/autoload.php';
 echo "<pre>";
+
 use Leonardomanrich\Cpanelwhm\Api\UAPI;
 use Leonardomanrich\Cpanelwhm\Api\Ports;
 use Leonardomanrich\Cpanelwhm\Api\WHMCS;
@@ -24,8 +25,8 @@ echo "<pre>";
     ); */
 
 $environment = new WHMCS(
-    'https://allrise.com.br',
-    'jkGNoqltrahvKGXGe73WJp689KwijXj6', 
+    'https://allrise.com.br/financeiro',
+    'jkGNoqltrahvKGXGe73WJp689KwijXj6',
     'zgu8Riyk2FIKDP3TLKfYgHS7LKEQ78Ir'
 );
 
@@ -37,6 +38,8 @@ $cpanelClient = new HttpClient($environment);
     'type' => 'dir',
     'type' => 'file'
 ]; */
+//$fileman = new Fileman();
+//var_dump($cpanelClient->execute($fileman->get_file_content('public_html', 'index.html'))->result);
+//$Users = new Users();
 
-//var_dump($cpanelClient->execute(Fileman::get_file_content('public_html', 'index.html'))->result);
-var_dump($cpanelClient->execute(Users::getUsers()));
+//var_dump($cpanelClient->execute($Users->getUsers()));

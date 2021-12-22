@@ -5,14 +5,15 @@ namespace Leonardomanrich\Cpanelwhm\Http;
 use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
 
 use Leonardomanrich\Cpanelwhm\Http\ClientCpanelWhm;
-use Leonardomanrich\Cpanelwhm\Requests\DefaultInjector;
-use Leonardomanrich\Cpanelwhm\Requests\AuthorizationInjector;
+use Leonardomanrich\Cpanelwhm\Requests\Injectors\DefaultInjector;
+use Leonardomanrich\Cpanelwhm\Requests\Injectors\AuthorizationInjector;
 
 /**
  * Undocumented class
  */
 //TODO documentar aqui
-class HttpClient extends ClientCpanelWhm{
+class HttpClient extends ClientCpanelWhm
+{
 
     /**
      * Undocumented function
@@ -24,8 +25,7 @@ class HttpClient extends ClientCpanelWhm{
     {
 
         parent::__construct($environment);
-        $this->addInjector(new AuthorizationInjector($environment));
+        $this->addInjector(new AuthorizationInjector($environment)); //TODO refator injector de autorização as apis se autenticam de forma diferente
         $this->addInjector(new DefaultInjector());
     }
-
 }

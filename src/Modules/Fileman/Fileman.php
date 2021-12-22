@@ -9,7 +9,7 @@ use Leonardomanrich\Cpanelwhm\Requests\Request;
  * @link https://documentation.cpanel.net/display/DD/UAPI+Modules+-+Fileman
  * Undocumented class
  */
-class Fileman
+class Fileman extends Request
 {
 
     /**
@@ -31,7 +31,7 @@ class Fileman
      * @return Request
      */
     //TODO documentar aqui
-    public static function list_files(
+    public function list_files(
         string $path,
         string $types = 'dir|file',
         bool $limit_to_list = false,
@@ -43,8 +43,9 @@ class Fileman
         bool $include_mime = false,
         bool $include_hash = false,
         bool $include_permissions = false
-    ): Request {
-        return new Request("GET", "Fileman/list_files", [], [
+    ) {
+
+        return $this->setMethod('GET')->setPath("Fileman/list_files")->addBody([
             'dir' => $path,
             'types' => $types,
             'limit_to_list' => $limit_to_list,
@@ -73,7 +74,7 @@ class Fileman
     //TODO documentar aqui
     public static function autocompletedir(string $path, bool $dir_sonly = true, bool $list_all = false, bool $html = true): Request
     {
-        return new Request(
+        /* return new Request(
             "GET",
             "Fileman/autocompletedir",
             [],
@@ -83,7 +84,14 @@ class Fileman
                 'list_all' => $list_all,
                 'html' => $html
             ]
-        );
+        ); */
+
+        return $this->setMethod('GET')->setPath("Fileman/autocompletedir")->addBody([
+            'path' => $path,
+            'dirs_only' => $dir_sonly,
+            'list_all' => $list_all,
+            'html' => $html
+        ]);
     }
 
 
@@ -106,7 +114,7 @@ class Fileman
         bool $update_html_document_encoding = true,
 
     ): Request {
-        return new Request("GET", "Fileman/get_file_content", [], [
+        return $this->setMethod('GET')->setPath("Fileman/get_file_content")->addBody([
             'dir' => $path,
             'file' => $file,
             'from_charset' => $from_charset,

@@ -1,6 +1,8 @@
 <?php
 
-namespace Leonardomanrich\Cpanelwhm\Requests;
+namespace Leonardomanrich\Cpanelwhm\Requests\Injectors;
+
+use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 /**
  * Undocumented interface

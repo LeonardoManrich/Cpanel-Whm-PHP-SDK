@@ -11,10 +11,10 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
-use Leonardomanrich\Cpanelwhm\Requests\Injector;
+use Leonardomanrich\Cpanelwhm\Requests\Injectors\Injector;
 
 class ClientCpanelWhm extends Client
-{   
+{
     /**
      * Undocumented variable
      *
@@ -24,7 +24,7 @@ class ClientCpanelWhm extends Client
     private $injectors = [];
 
     public function __construct(CpanelWhm $environment)
-    {   
+    {
         //TODO documentar aqui
         try {
             parent::__construct([
@@ -63,26 +63,26 @@ class ClientCpanelWhm extends Client
                 $inj->inject($request);
             }
 
-            //die(var_dump($request->options));
+            //die(var_dump($request->getBody()));
 
             $result = $this->send(
                 new Psr7Request(
-                    $request->verb,
-                    $request->path,
-                    $request->headers,
+                    $request->getMethod(),
+                    $request->getPath(),
+                    $request->getHeaders(),
                     $request->getBody()
                 ),
-                $request->options
-            ); 
+                $request->getOptions()
+            );
 
+            // die(var_dump($result->getBody()->getContents()));
             $response = new stdClass();
             $response->status_code = $result->getStatusCode();
             $response->headers = $result->getHeaders();
             $response->reason_phrase = $result->getReasonPhrase();
-            $response->result = json_decode($result->getBody()->getContents());
+            $response->result = json_decode($result->getBody()->getContents()); //TODO whm/cpanel tem funções que não retornam json
 
             return $response;
-
         } catch (RequestException $e) {
             return Message::parseMessage(Message::toString($e->getResponse()));
         } catch (\Exception $e) {
@@ -91,5 +91,4 @@ class ClientCpanelWhm extends Client
             return Message::parseMessage($e->getMessage());
         }
     }
-
 }
