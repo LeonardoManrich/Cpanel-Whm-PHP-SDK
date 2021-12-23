@@ -6,7 +6,7 @@ use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
 
 use Leonardomanrich\Cpanelwhm\Http\ClientCpanelWhm;
 use Leonardomanrich\Cpanelwhm\Requests\Injectors\DefaultInjector;
-use Leonardomanrich\Cpanelwhm\Requests\Injectors\AuthorizationInjector;
+use Leonardomanrich\Cpanelwhm\Requests\Injectors\Authorizations\AuthorizationInjector;
 
 /**
  * Undocumented class

@@ -1,12 +1,13 @@
 <?php
 
-namespace Leonardomanrich\Cpanelwhm\Requests\Injectors;
+namespace Leonardomanrich\Cpanelwhm\Requests\Injectors\Authorizations;
 
 use Leonardomanrich\Cpanelwhm\Api\WHMCS;
 use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
+use Leonardomanrich\Cpanelwhm\Requests\Request;
 use Leonardomanrich\Cpanelwhm\Requests\Injectors\Injector;
 
-class AuthorizationInjector implements Injector
+class AuthorizationInjector implements Injector, AuthInjector
 {
     /**
      * Undocumented variable
