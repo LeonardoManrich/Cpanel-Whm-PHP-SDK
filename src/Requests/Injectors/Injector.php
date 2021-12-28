@@ -10,11 +10,8 @@ use Leonardomanrich\Cpanelwhm\Requests\Request;
 interface Injector
 {
     /**
-     * Undocumented function
-     *
      * @param Request $request
      * @return void
      */
-    //TODO documentar aqui
-    public function inject(Request $request);
+    public function inject(Request $request): void;
 }

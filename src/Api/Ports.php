@@ -3,33 +3,31 @@
 namespace Leonardomanrich\Cpanelwhm\Api;
 
 /**
- * Undocumented class
+ * Ports available of cpanel/whm
+ *
+ * @link https://documentation.cpanel.net/display/DD/Guide+to+API+Authentication
  */
-//TODO documentar aqui
-class Ports{
+class Ports
+{
 
     /**
-     * 
+     * Unsecure calls to cPanel's APIs.
      */
-    //TODO documentar aqui
-    const UNSECURE_API = 2082;
+    public const UNSECURE_API = 2082;
 
     /**
-     * 
+     *  Secure calls to cPanel's APIs.
      */
-    //TODO documentar aqui
-    const SECURE_API = 2083;
+    public const SECURE_API = 2083;
 
     /**
-     * 
+     * Unsecure calls to WHM's APIs, or to cPanel's APIs via the WHM API.
      */
-    //TODO documentar aqui
-    const UNSECURE_WHM_TOCPANEL = 2086;
+    public const UNSECURE_WHM_TOCPANEL = 2086;
 
     /**
-     * 
+     * Secure calls to WHM's APIs, or to cPanel's APIs via the WHM API.
      */
-    //TODO documentar aqui
-    const SECURE_WHM_TOCPANEL = 2087;
+    public const SECURE_WHM_TOCPANEL = 2087;
 
 }

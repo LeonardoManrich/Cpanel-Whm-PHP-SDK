@@ -2,26 +2,32 @@
 
 namespace Leonardomanrich\Cpanelwhm\Api;
 
-/**
- * Undocumented interface
- */
-//TODO documentar aqui
+use Leonardomanrich\Cpanelwhm\Requests\Request;
+
 interface Environment
-{   
+{
     /**
-     * Undocumented function
+     * Return the base_url. Ex: https://www.domain.com
      *
-     * @return void
+     * @return string
      */
-    //TODO documentar aqui
-    public function base_url();
+    public function base_url(): string;
 
     /**
-     * Undocumented function
+     * Return the uri. Ex: /include/api.php
      *
      * @return void
      */
     //TODO documentar aqui
-    public function uri();
+    public function uri(): string;
+
+
+    /**
+     * Inject the authorization of an environment
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function auth(Request $request): void;
 
 }

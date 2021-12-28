@@ -11,12 +11,20 @@ class Users extends Request
     /**
      * Undocumented function
      *
-     * @return void
+     * @param int $limitStart
+     * @param int $limitNum
+     * @param string $sorting
+     * @param string $search
+     * @return Request|Users
      */
     //TODO documentar aqui
-    public function getUsers($limitStart = 0, $limitNum = 25, $sorting = 'ASC', $search = '')
+    public function getUsers(
+        int    $limitStart = 0,
+        int    $limitNum = 25,
+        string $sorting = 'ASC',
+        string $search = ''
+    ): Users|Request
     {
-
         return $this->setMethod('GET')->setPath("")->addQueryParams([
             'action' => 'GetUsers',
             'limitstart' => $limitStart,

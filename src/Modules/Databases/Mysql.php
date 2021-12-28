@@ -5,22 +5,26 @@ namespace Leonardomanrich\Cpanelwhm\Modules\Databases;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 //TODO TERMINAR
-class Mysql{
-    //https://api.docs.cpanel.net/openapi/cpanel/operation/list_databases/
+class Mysql extends Request
+{
 
     /**
-     * Undocumented function
+     * @link https://api.docs.cpanel.net/openapi/cpanel/operation/list_databases/
      *
-     * @return void
+     * @return Request
      */
-    //TODO documentar aqui
-    public static function list_databases() : Request
+    public function list_databases(): Request
     {
-        return new Request("GET", "Mysql/list_databases");
+        return $this->setMethod('GET')->setPath("Mysql/list_databases");
     }
 
-    public static function get_host_notes()
+    /**
+     * @link https://api.docs.cpanel.net/openapi/cpanel/operation/get_host_notes/
+     *
+     * @return Request
+     */
+    public function get_host_notes(): Request
     {
-        return new Request("GET", "Mysql/get_host_notes");
+        return $this->setMethod('GET')->setPath("Mysql/get_host_notes");
     }
 }

@@ -2,16 +2,16 @@
 
 namespace Leonardomanrich\Cpanelwhm\Http;
 
-use stdClass;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Message;
 use GuzzleHttp\Psr7\Request as Psr7Request;
-use Leonardomanrich\Cpanelwhm\Api\CpanelWhm;
-use Leonardomanrich\Cpanelwhm\Requests\Request;
+use Leonardomanrich\Cpanelwhm\Api\Environment;
 use Leonardomanrich\Cpanelwhm\Requests\Injectors\Injector;
+use Leonardomanrich\Cpanelwhm\Requests\Request;
+use stdClass;
 
 class ClientCpanelWhm extends Client
 {
@@ -21,9 +21,9 @@ class ClientCpanelWhm extends Client
      * @var array
      */
     //TODO documentar aqui
-    private $injectors = [];
+    private array $injectors = [];
 
-    public function __construct(CpanelWhm $environment)
+    public function __construct(Environment $environment)
     {
         //TODO documentar aqui
         try {
@@ -31,7 +31,7 @@ class ClientCpanelWhm extends Client
                 'base_uri' => $environment->base_url() . $environment->uri()
             ]);
         } catch (ClientException $e) {
-            return Message::parseMessage($e->getMessage());
+            Message::parseMessage($e->getMessage());
             die();
         }
     }
@@ -52,18 +52,16 @@ class ClientCpanelWhm extends Client
      * Undocumented function
      *
      * @param Request $request
-     * @return void
+     * @return stdClass|array
      */
     //TODO documentar aqui
-    public function execute(Request $request)
+    public function execute(Request $request): stdClass|array
     {
         try {
 
             foreach ($this->injectors as $inj) {
                 $inj->inject($request);
             }
-
-            //die(var_dump($request->getBody()));
 
             $result = $this->send(
                 new Psr7Request(
@@ -75,12 +73,16 @@ class ClientCpanelWhm extends Client
                 $request->getOptions()
             );
 
-            // die(var_dump($result->getBody()->getContents()));
             $response = new stdClass();
             $response->status_code = $result->getStatusCode();
             $response->headers = $result->getHeaders();
             $response->reason_phrase = $result->getReasonPhrase();
-            $response->result = json_decode($result->getBody()->getContents()); //TODO whm/cpanel tem funções que não retornam json
+            $response->result = json_decode(
+                $result->getBody()->getContents(),
+                false,
+                512,
+                JSON_THROW_ON_ERROR
+            ); //TODO whm/cpanel tem funções que não retornam json
 
             return $response;
         } catch (RequestException $e) {

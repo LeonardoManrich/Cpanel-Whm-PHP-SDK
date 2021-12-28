@@ -2,11 +2,14 @@
 
 namespace Leonardomanrich\Cpanelwhm\Api;
 
+use Leonardomanrich\Cpanelwhm\Requests\Request;
+
 /**
  * Undocumented class
  */
 //TODO documentar aqui
-class WHMCS extends CpanelWhm{
+class WHMCS implements Environment
+{
 
     /**
      * Undocumented variable
@@ -16,23 +19,15 @@ class WHMCS extends CpanelWhm{
     //TODO documentar aqui
     private $base_url;
 
+    private $identifier;
 
-    /**
-     * Undocumented function
-     *
-     * @param [type] $base_url
-     * @param [type] $port
-     * @param [type] $username
-     * @param [type] $userpassword
-     */
-    //TODO refatorar
+    private $secret;
+
     public function __construct($base_url, $api_identifier, $api_secret)
-    {   
+    {
         $this->base_url = $base_url;
-        $this->api_identifier = $api_identifier;
-        $this->api_secret = $api_secret;
-
-        parent::__construct($api_identifier, $api_secret);
+        $this->identifier = $api_identifier;
+        $this->secret = $api_secret;
     }
 
     /**
@@ -40,7 +35,6 @@ class WHMCS extends CpanelWhm{
      *
      * @return string
      */
-    
     public function uri(): string
     {
         return "/includes/api.php";
@@ -51,4 +45,13 @@ class WHMCS extends CpanelWhm{
         return $this->base_url;
     }
 
+    public function auth(Request $request): void
+    {
+        $request->addQueryParams(
+            [
+                'identifier' => $this->identifier,
+                'secret' => $this->secret
+            ]
+        )->addQueryParams(['responsetype' => 'json']);
+    }
 }

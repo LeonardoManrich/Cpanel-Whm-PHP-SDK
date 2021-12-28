@@ -2,48 +2,59 @@
 
 namespace Leonardomanrich\Cpanelwhm\Api;
 
+use Leonardomanrich\Cpanelwhm\Requests\Request;
+
 /**
- * Undocumented class
+ * Environment to UAPI api of cpanel/whm
  */
-//TODO documentar aqui
-class UAPI extends CpanelWhm
+class UAPI implements Environment
 {
     /**
-     * Undocumented variable
+     * Port used to access your api
      *
-     * @var [type]
+     * @var string $port
      */
-    //TODO documentar aqui
-    private $port;
+    private string $port;
 
     /**
-     * Undocumented variable
+     * Base url of your api
+     * Ex: https://www.domain.com
      *
-     * @var [type]
+     * @var string $base_url
      */
-    //TODO documentar aqui
-    private $base_url;
-
+    private string $base_url;
 
     /**
-     * Undocumented function
+     * Your username to auth
      *
-     * @param [type] $base_url
-     * @param [type] $port
-     * @param [type] $username
-     * @param [type] $userpassword
+     * @var string $username
      */
-    //TODO refatorar
-    public function __construct($base_url, $port, $username, $userpassword)
-    {   
+    private string $username;
+
+    /**
+     *  Your password to auth
+     *
+     * @var string $password
+     */
+    private string $password;
+
+    /**
+     * @param string $base_url
+     * @param string $port
+     * @param string $username
+     * @param string $password
+     */
+    public function __construct(string $base_url, string $port, string $username, string $password)
+    {
         $this->port = $port;
         $this->base_url = $base_url;
+        $this->username = $username;
+        $this->password = $password;
 
-        parent::__construct($username, $userpassword);
     }
 
     /**
-     * Undocumented function
+     * Return the uri of environment
      *
      * @return string
      */
@@ -54,7 +65,40 @@ class UAPI extends CpanelWhm
 
     public function base_url(): string
     {
-        return $this->base_url . ':' .$this->port;
+        return $this->base_url . ':' . $this->port;
     }
 
+    /**
+     * Add the authorization to the request
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function auth(Request $request): void
+    {
+        if (!$this->hasAuthHeader($request)) {
+            $request->addHeader('Authorization', 'Basic ' . $this->authorizationKey());
+        }
+    }
+
+    /**
+     * Return the basic auth
+     *
+     * @return string
+     */
+    private function authorizationKey(): string
+    {
+        return base64_encode($this->username . ":" . $this->password);
+    }
+
+    /**
+     * Check if the request has the Authorization header
+     *
+     * @param Request $request
+     * @return bool
+     */
+    private function hasAuthHeader(Request $request): bool
+    {
+        return (bool)$request->getHeader("Authorization");
+    }
 }

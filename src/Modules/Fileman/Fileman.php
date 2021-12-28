@@ -5,47 +5,45 @@ namespace Leonardomanrich\Cpanelwhm\Modules\Fileman;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 //TODO TERMINAR
+
 /**
  * @link https://documentation.cpanel.net/display/DD/UAPI+Modules+-+Fileman
- * Undocumented class
  */
 class Fileman extends Request
 {
 
     /**
      * @link https://documentation.cpanel.net/display/DD/UAPI+Functions+-+Fileman%3A%3Alist_files
-     * 
-     * Undocumented function
      *
      * @param string $path
      * @param string $types
-     * @param boolean $limit_to_list
+     * @param bool $limit_to_list
      * @param string $only_these_files
-     * @param boolean $show_hidden
-     * @param boolean $check_for_leaf_directories
+     * @param bool $show_hidden
+     * @param bool $check_for_leaf_directories
      * @param string $mime_types
      * @param string $raw_mime_types
-     * @param boolean $include_mime
-     * @param boolean $include_hash
-     * @param boolean $include_permissions
+     * @param bool $include_mime
+     * @param bool $include_hash
+     * @param bool $include_permissions
      * @return Request
      */
-    //TODO documentar aqui
     public function list_files(
         string $path,
         string $types = 'dir|file',
-        bool $limit_to_list = false,
+        bool   $limit_to_list = false,
         string $only_these_files = '',
-        bool $show_hidden = false,
-        bool $check_for_leaf_directories = false,
+        bool   $show_hidden = false,
+        bool   $check_for_leaf_directories = false,
         string $mime_types = '',
         string $raw_mime_types = '',
-        bool $include_mime = false,
-        bool $include_hash = false,
-        bool $include_permissions = false
-    ) {
+        bool   $include_mime = false,
+        bool   $include_hash = false,
+        bool   $include_permissions = false
+    ): Request
+    {
 
-        return $this->setMethod('GET')->setPath("Fileman/list_files")->addBody([
+        return $this->setMethod('GET')->setPath("Fileman/list_files")->addQueryParams([
             'dir' => $path,
             'types' => $types,
             'limit_to_list' => $limit_to_list,
@@ -62,31 +60,21 @@ class Fileman extends Request
 
     /**
      * @link https://documentation.cpanel.net/display/DD/UAPI+Functions+-+Fileman%3A%3Aautocompletedir
-     * 
-     * Undocumented function
      *
      * @param string $path
-     * @param string $dir_sonly
-     * @param string $list_all
+     * @param bool $dir_sonly
+     * @param bool $list_all
      * @param boolean $html
-     * @return void
+     * @return Request
      */
-    //TODO documentar aqui
-    public static function autocompletedir(string $path, bool $dir_sonly = true, bool $list_all = false, bool $html = true): Request
+    public function autocompletedir(
+        string $path,
+        bool   $dir_sonly = true,
+        bool   $list_all = false,
+        bool   $html = true
+    ): Request
     {
-        /* return new Request(
-            "GET",
-            "Fileman/autocompletedir",
-            [],
-            [
-                'path' => $path,
-                'dirs_only' => $dir_sonly,
-                'list_all' => $list_all,
-                'html' => $html
-            ]
-        ); */
-
-        return $this->setMethod('GET')->setPath("Fileman/autocompletedir")->addBody([
+        return $this->setMethod('GET')->setPath("Fileman/autocompletedir")->addQueryParams([
             'path' => $path,
             'dirs_only' => $dir_sonly,
             'list_all' => $list_all,
@@ -94,27 +82,26 @@ class Fileman extends Request
         ]);
     }
 
-
     /**
-     * Undocumented function
+     * @link https://documentation.cpanel.net/display/DD/UAPI+Functions+-+Fileman%3A%3Aget_file_content
      *
      * @param string $path
      * @param string $file
      * @param string $from_charset
      * @param string $to_charset
-     * @param boolean $update_html_document_encoding
+     * @param bool $update_html_document_encoding
      * @return Request
      */
-    //TODO documentar aqui
-    public static function get_file_content(
+    public function get_file_content(
         string $path,
         string $file,
         string $from_charset = '_DETECT_',
         string $to_charset = '_LOCALE_',
-        bool $update_html_document_encoding = true,
+        bool   $update_html_document_encoding = true,
 
-    ): Request {
-        return $this->setMethod('GET')->setPath("Fileman/get_file_content")->addBody([
+    ): Request
+    {
+        return $this->setMethod('GET')->setPath("Fileman/get_file_content")->addQueryParams([
             'dir' => $path,
             'file' => $file,
             'from_charset' => $from_charset,
