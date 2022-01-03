@@ -1,6 +1,6 @@
 <?php
 
-namespace Leonardomanrich\Cpanelwhm\Modules\Databases;
+namespace Leonardomanrich\Cpanelwhm\Modules\Cpanel_whm;
 
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 

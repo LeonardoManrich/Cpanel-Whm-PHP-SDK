@@ -5,22 +5,35 @@ namespace Leonardomanrich\Cpanelwhm\Api;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 /**
- * Undocumented class
+ * Environment of WHMCS api
  */
-//TODO documentar aqui
 class WHMCS implements Environment
 {
 
     /**
-     * Undocumented variable
+     * Base url of your api
+     * Ex: https://www.domain.com
      *
-     * @var [type]
+     * @var string $base_url
      */
-    //TODO documentar aqui
     private string $base_url;
 
+    /**
+     * The identifier of WHMCS panel
+     *
+     * @link https://docs.whmcs.com/API_Authentication_Credentials#Creating_Admin_API_Authentication_Credentials
+     *
+     * @var string
+     */
     private string $identifier;
 
+    /**
+     * The secret of WHMCS panel
+     *
+     * @link https://docs.whmcs.com/API_Authentication_Credentials#Creating_Admin_API_Authentication_Credentials
+     *
+     * @var string
+     */
     private string $secret;
 
     public function __construct($base_url, $api_identifier, $api_secret)
@@ -30,6 +43,11 @@ class WHMCS implements Environment
         $this->secret = $api_secret;
     }
 
+    /**
+     * Implements te uri of WHMCS
+     * Default is /includes/api.php, if you have changed the directory, change it.
+     * @return string
+     */
     public function uri(): string
     {
         return "/includes/api.php";
@@ -40,6 +58,11 @@ class WHMCS implements Environment
         return $this->base_url;
     }
 
+    /**
+     * Implements the authorization of WHMCS
+     * @param Request $request
+     * @return void
+     */
     public function auth(Request $request): void
     {
         $request->addQueryParams(
