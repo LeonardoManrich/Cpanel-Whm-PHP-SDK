@@ -16,10 +16,10 @@ class Orders extends Request
      * @link https://developers.whmcs.com/api-reference/acceptorder/
      *
      * @param int $orderid
-     * @param int $serverid
-     * @param string $serviceusername
-     * @param string $servicepassword
-     * @param string $registrar
+     * @param int|null $serverid
+     * @param string|null $serviceusername
+     * @param string|null $servicepassword
+     * @param string|null $registrar
      * @param bool $sendregistrar
      * @param bool $autosetup
      * @param bool $sendemail
