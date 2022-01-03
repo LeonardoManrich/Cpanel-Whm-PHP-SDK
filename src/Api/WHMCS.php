@@ -17,11 +17,11 @@ class WHMCS implements Environment
      * @var [type]
      */
     //TODO documentar aqui
-    private $base_url;
+    private string $base_url;
 
-    private $identifier;
+    private string $identifier;
 
-    private $secret;
+    private string $secret;
 
     public function __construct($base_url, $api_identifier, $api_secret)
     {
@@ -30,11 +30,6 @@ class WHMCS implements Environment
         $this->secret = $api_secret;
     }
 
-    /**
-     * Undocumented function
-     *
-     * @return string
-     */
     public function uri(): string
     {
         return "/includes/api.php";

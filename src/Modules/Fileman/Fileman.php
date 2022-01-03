@@ -8,6 +8,7 @@ use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 /**
  * @link https://documentation.cpanel.net/display/DD/UAPI+Modules+-+Fileman
+ * @name Fileman
  */
 class Fileman extends Request
 {

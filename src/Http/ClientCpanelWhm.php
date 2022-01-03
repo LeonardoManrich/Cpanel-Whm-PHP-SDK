@@ -16,16 +16,19 @@ use stdClass;
 class ClientCpanelWhm extends Client
 {
     /**
-     * Undocumented variable
-     *
+     * one-request injectors list
      * @var array
      */
-    //TODO documentar aqui
     private array $injectors = [];
 
+    /**
+     * Initialize the guzzle client
+     *
+     * @param Environment $environment
+     */
     public function __construct(Environment $environment)
     {
-        //TODO documentar aqui
+
         try {
             parent::__construct([
                 'base_uri' => $environment->base_url() . $environment->uri()
@@ -37,24 +40,22 @@ class ClientCpanelWhm extends Client
     }
 
     /**
-     * Undocumented function
+     * add injector to a request
      *
      * @param Injector $inj
      * @return void
      */
-    //TODO documentar aqui
     public function addInjector(Injector $inj)
     {
         $this->injectors[] = $inj;
     }
 
     /**
-     * Undocumented function
+     * Execute a request
      *
      * @param Request $request
      * @return stdClass|array
      */
-    //TODO documentar aqui
     public function execute(Request $request): stdClass|array
     {
         try {

@@ -5,19 +5,23 @@ namespace Leonardomanrich\Cpanelwhm\Modules\WHMCS;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 //TODO TERMINAR
+
+/**
+ * @link https://developers.whmcs.com/api/api-index/
+ * @name Users
+ */
 class Users extends Request
 {
 
     /**
-     * Undocumented function
+     * @link https://developers.whmcs.com/api-reference/getusers/
      *
      * @param int $limitStart
      * @param int $limitNum
      * @param string $sorting
      * @param string $search
-     * @return Request|Users
+     * @return Users|Request
      */
-    //TODO documentar aqui
     public function getUsers(
         int    $limitStart = 0,
         int    $limitNum = 25,

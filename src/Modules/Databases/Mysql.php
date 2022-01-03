@@ -5,6 +5,11 @@ namespace Leonardomanrich\Cpanelwhm\Modules\Databases;
 use Leonardomanrich\Cpanelwhm\Requests\Request;
 
 //TODO TERMINAR
+
+/**
+ * @link https://api.docs.cpanel.net/openapi/cpanel/tag/Database-Information/
+ * @name Mysql
+ */
 class Mysql extends Request
 {
 

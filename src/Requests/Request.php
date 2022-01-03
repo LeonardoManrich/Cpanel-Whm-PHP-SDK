@@ -2,74 +2,40 @@
 
 namespace Leonardomanrich\Cpanelwhm\Requests;
 
-/**
- * Undocumented class
- */
-//TODO documentar aqui
 class Request
 {
-    /**
-     * Undocumented variable
-     *
-     * @var string
-     */
-    //TODO documentar aqui
-    private string $verb;
 
-    /**
-     * Undocumented variable
-     *
-     * @var string
-     */
-    //TODO documentar aqui
+    private string $method;
+
     private string $path;
 
-    /**
-     * Undocumented variable
-     *
-     * @var array
-     */
-    //TODO documentar aqui
     private array $headers;
 
-    /**
-     * Undocumented variable
-     *
-     * @var array
-     */
-    //TODO documentar aqui
     private array $body;
 
-    /**
-     * Undocumented variable
-     *
-     * @var array
-     */
-    //TODO documentar aqui
     private array $options;
 
     public function __construct(
-        string $verb = '',
+        string $method = '',
         string $path = '',
         array  $headers = [],
         array  $body = [],
         array  $options = [])
     {
         $this->path = $path;
-        $this->verb = $verb;
-        $this->body = $body;
+        $this->method = $method;
         $this->headers = $headers;
+        $this->body = $body;
         $this->options = $options;
     }
 
     /**
-     * Undocumented function
+     * add option to a request
      *
      * @param string $option
      * @param string $value
-     * @return Request
+     * @return $this
      */
-    //TODO documentar aqui
     public function addOption(string $option, string $value): static
     {
         $this->options[$option] = $value;
@@ -77,49 +43,51 @@ class Request
     }
 
     /**
-     * Undocumented function
+     * set method of request
      *
      * @param string $method
-     * @return Request
+     * @return $this
      */
-    //TODO documentar aqui
     public function setMethod(string $method): static
     {
-        $this->verb = $method;
+        $this->method = $method;
         return $this;
     }
 
-    public function getMethod() : string
+    /**
+     * get method of request
+     *
+     * @return string
+     */
+    public function getMethod(): string
     {
-        return $this->verb;
+        return $this->method;
     }
 
     /**
-     * Undocumented function
+     * set path of request
      *
      * @param string $path
-     * @return Request
+     * @return $this
      */
-    //TODO documentar aqui
     public function setPath(string $path): static
     {
         $this->path = $path;
         return $this;
     }
 
-    public function getPath() : string
+    public function getPath(): string
     {
         return $this->path;
     }
 
     /**
-     * Undocumented function
+     * add header to request
      *
-     * @param [type] $header
-     * @param [type] $value
-     * @return Request
+     * @param $header
+     * @param $value
+     * @return $this
      */
-    //TODO documentar aqui
     public function addHeader($header, $value): static
     {
         $this->headers[$header] = $value;
@@ -127,21 +95,20 @@ class Request
     }
 
     /**
-     * Undocumented function
+     * return url query of body
      *
      * @return string
      */
-    //TODO documentar aqui
     public function getBody(): string
     {
         return http_build_query($this->body);
     }
 
     /**
-     * Undocumented function
+     * add body to request
      *
      * @param array $params
-     * @return Request
+     * @return $this
      */
     public function addBody(array $params): static
     {
@@ -154,27 +121,42 @@ class Request
     }
 
     /**
-     * Undocumented function
+     * get a header os request
      *
      * @param string $header
      * @return mixed
      */
-    //TODO documentar aqui
     public function getHeader(string $header): mixed
     {
         return $this->headers[$header] ?? false;
     }
 
+    /**
+     * return the headers of a request
+     *
+     * @return array
+     */
     public function getHeaders(): array
     {
         return $this->headers;
     }
 
+    /**
+     * return the options of a request
+     *
+     * @return array
+     */
     public function getOptions(): array
     {
         return $this->options;
     }
 
+    /**
+     * add form params a request
+     *
+     * @param array $params
+     * @return $this
+     */
     public function addFormParams(array $params): static
     {
         $this->options['form_params'] ?? $this->options['form_params'] = [];
@@ -187,9 +169,15 @@ class Request
         return $this;
     }
 
+    /**
+     * add query params to a request
+     *
+     * @param array $params
+     * @return $this
+     */
     public function addQueryParams(array $params): static
     {
-        $this->options['form_params'] ?? $this->options['form_params'] = [];
+        $this->options['query'] ?? $this->options['query'] = [];
 
         foreach ($params as $key => $param) {
 
