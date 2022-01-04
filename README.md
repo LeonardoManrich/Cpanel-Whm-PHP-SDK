@@ -1,6 +1,4 @@
-# Cpanel-Whm-PHP-SDK
-
-Abstraction for cpanel/whm and WHMCS apis
+# SDK for cpanel/whm and WHMCS api's
 
 Currently in development
 
