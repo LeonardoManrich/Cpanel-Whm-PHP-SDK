@@ -36,7 +36,7 @@ class WHMCS implements Environment
      */
     private string $secret;
 
-    public function __construct($base_url, $api_identifier, $api_secret)
+    public function __construct(string $base_url, string $api_identifier, string $api_secret)
     {
         $this->base_url = $base_url;
         $this->identifier = $api_identifier;
